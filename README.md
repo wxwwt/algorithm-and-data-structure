@@ -1,2 +1,2 @@
 # algorithm-and-data-structure
-重新好好学习下数据结构和算法，实现的一些例子放这里
+自己练习的算法题的代码放在这里，主要是leetcode（有带题号）
