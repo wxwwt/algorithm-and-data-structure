@@ -1,19 +1,18 @@
-package com.algorithm.leetcode.others;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.algorithm.leetcode.leetcode;
 
 /**
  * @author shenchuang
  * @since 2020-03-28
  */
-public class RemoveLinkedListNode {
+public class RemoveLinkedListNode_19 {
 
     public static class ListNode {
         int val;
         ListNode next;
 
-        ListNode(int x) { val = x; }
+        ListNode(int x) {
+            val = x;
+        }
     }
 
     public static void main(String[] args) {
@@ -36,7 +35,7 @@ public class RemoveLinkedListNode {
      * 第一种解法 之遍历了一次 但是把每个节点都存了一次  性能很不好
      * 分三种情况分别讨论的
      */
-    public static ListNode removeLinkedListNode(ListNode head, int n) {
+ /*   public static ListNode removeLinkedListNode(ListNode head, int n) {
         ListNode currentNode = head;
         if (head.next == null && n == 1) {
             return null;
@@ -62,6 +61,34 @@ public class RemoveLinkedListNode {
             subNode.next = plusNode;
             return head;
         }
+    }*/
+
+    /**
+     * 优化的方法
+     * @param head
+     * @param n
+     * @return
+     */
+    public static ListNode removeLinkedListNode(ListNode head, int n) {
+        ListNode virtualNode = new ListNode(0);
+        virtualNode.next = head;
+        ListNode fastPoint = virtualNode;
+        ListNode slowPoint = virtualNode;
+        int count = 0;
+        while (fastPoint != null) {
+            // 先将快指针移动n个位置 因为是有虚拟节点所以要多移动一次是<=n
+            if (count <= n) {
+                fastPoint = fastPoint.next;
+                ++count;
+            } else {
+                fastPoint = fastPoint.next;
+                slowPoint = slowPoint.next;
+            }
+
+        }
+        // 将慢指针的指向后一个节点
+        slowPoint.next = slowPoint.next.next;
+        return virtualNode.next;
     }
 
     public static void printNode(ListNode node) {
