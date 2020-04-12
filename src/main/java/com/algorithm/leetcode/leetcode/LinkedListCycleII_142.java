@@ -19,23 +19,45 @@ public class LinkedListCycleII_142 {
     }
 
     public static void main(String[] args) {
-        RemoveLinkedListNode_19.ListNode n1 = new RemoveLinkedListNode_19.ListNode(1);
-      //  System.out.println(detectCycle(n1));
+
     }
 
-
-    public ListNode detectCycle(ListNode head) {
-        // 先设置一个虚拟节点
-        ListNode virtualNode = new ListNode(-12345);
-        virtualNode.next = head;
-        ListNode currentNode = virtualNode;
-        Map<Integer, ListNode> hash = new HashMap<>();
-//        while(hash.containsKey(currentNode.next)) {
-//
-//        }
-        // 在对链表进行遍历 有出现两次相同 指向节点就是入环的首节点
+    public ListNode getFirstMeetNode(ListNode head) {
+        ListNode fast = head;
+        ListNode slow = head;
+        // 两个指针在列表上遍历  相遇就返回这个相遇的节点
+        // 没有相遇就是无环
+        while (null != slow && null != slow.next) {
+            fast = fast.next;
+            slow = slow.next.next;
+            if (fast == slow) {
+                return fast;
+            }
+        }
         return null;
     }
+
+    public ListNode detectCycle(ListNode head) {
+        if (null == head) {
+            return null;
+        }
+
+
+        ListNode meetNode = getFirstMeetNode(head);
+        if (null == meetNode) {
+            return null;
+        }
+
+        // 从头开始同速度一起跑一次 相遇就是入环节点
+        ListNode point1 = head;
+        ListNode point2 = meetNode;
+        while (point1 != point2) {
+            point1 = point1.next;
+            point2 = point2.next;
+        }
+        return point2;
+    }
+
 
     public static void printNode(ListNode node) {
         ListNode currentNode = node;
