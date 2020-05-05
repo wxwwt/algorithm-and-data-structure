@@ -9,3 +9,6 @@ out
 gen
 .mvn/
 target/
+/.idea/libraries/Maven__org_springframework_spring_expression_5_1_7_RELEASE.xml
+/.idea/libraries/Maven__ch_qos_logback_logback_core_1_2_3.xml
+/.idea/**
