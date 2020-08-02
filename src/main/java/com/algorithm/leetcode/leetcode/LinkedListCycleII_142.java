@@ -1,5 +1,12 @@
 package com.algorithm.leetcode.leetcode;
 
+
+
+
+
+import org.junit.Assert;
+import org.junit.Test;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,6 +14,7 @@ import java.util.Map;
  * @author scott
  * @date 2020/3/29 22:32
  */
+
 public class LinkedListCycleII_142 {
 
     public static class ListNode {
@@ -18,46 +26,66 @@ public class LinkedListCycleII_142 {
         }
     }
 
-    public static void main(String[] args) {
+    @Test
+    public void test1() {
+        ListNode n1 = new ListNode(-1);
+        ListNode n2 = new ListNode(-7);
+        ListNode n3 = new ListNode(7);
+        ListNode n4 = new ListNode(-4);
+        ListNode n5 = new ListNode(19);
 
+        n1.next = n2;
+        n2.next = n3;
+        n3.next = n4;
+        n4.next = n5;
+
+        ListNode n6 = new ListNode(6);
+        ListNode n7 = new ListNode(-9);
+        ListNode n8 = new ListNode(-5);
+        ListNode n9 = new ListNode(-5);
+        ListNode n10 = new ListNode(-5);
+
+        n5.next = n6;
+        n6.next = n7;
+        n7.next = n8;
+        n8.next = n9;
+        n9.next = n10;
+        n10.next = n5;
+
+        Assert.assertEquals(19, detectCycle(n1).val);
     }
 
-    public ListNode getFirstMeetNode(ListNode head) {
-        ListNode fast = head;
-        ListNode slow = head;
-        // 两个指针在列表上遍历  相遇就返回这个相遇的节点
-        // 没有相遇就是无环
-        while (null != slow && null != slow.next) {
-            fast = fast.next;
-            slow = slow.next.next;
-            if (fast == slow) {
-                return fast;
+    @Test
+    public void test2() {
+        ListNode n1 = new ListNode(1);
+        Assert.assertNull(detectCycle(n1));
+    }
+
+    @Test
+    public void test3() {
+        ListNode n1 = new ListNode(1);
+        ListNode n2 = new ListNode(2);
+        n1.next = n2;
+        n2.next = n1;
+        Assert.assertEquals(1, detectCycle(n1).val);
+    }
+
+    public static ListNode detectCycle(ListNode head) {
+        ListNode currentNode = head;
+        Map<ListNode, ListNode> hash = new HashMap<>();
+        // 这里有个边界条件就是head可能本来就是空的 要直接返回null
+        while (currentNode != null) {
+            // 在对链表进行遍历 有出现两次相同 指向节点就是入环的首节点
+            // 这里要注意出现两次指的是hash或者说是内存地址 一开始我用的val来判断的出现两次会有问题
+            // 因为val的值是可以重复的
+            if (hash.containsKey(currentNode)) {
+                return currentNode;
             }
+            hash.put(currentNode, currentNode);
+            currentNode = currentNode.next;
         }
         return null;
     }
-
-    public ListNode detectCycle(ListNode head) {
-        if (null == head) {
-            return null;
-        }
-
-
-        ListNode meetNode = getFirstMeetNode(head);
-        if (null == meetNode) {
-            return null;
-        }
-
-        // 从头开始同速度一起跑一次 相遇就是入环节点
-        ListNode point1 = head;
-        ListNode point2 = meetNode;
-        while (point1 != point2) {
-            point1 = point1.next;
-            point2 = point2.next;
-        }
-        return point2;
-    }
-
 
     public static void printNode(ListNode node) {
         ListNode currentNode = node;
