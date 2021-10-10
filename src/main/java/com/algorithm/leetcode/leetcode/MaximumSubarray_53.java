@@ -1,12 +1,15 @@
 package com.algorithm.leetcode.leetcode;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 /**
  * @author scott
  * @since 2019-10-22
  */
 public class MaximumSubarray_53 {
 
-    public static int maxSubArray(int[] nums) {
+    public int maxSubArray1(int[] nums) {
         int[] dp = new int[nums.length];
         dp[0] = nums[0];
         for (int i = 1; i < nums.length; i++) {
@@ -24,30 +27,39 @@ public class MaximumSubarray_53 {
         return max;
     }
 
-    public static void main(String[] args) {
-        System.out.println(maxSubArray(new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4}));
+    public int maxSubArray2(int[] nums) {
+        if (nums.length == 1) {
+            return nums[0];
+        }
+        int temp = 0, max = nums[0];
+        for (int i = 0; i < nums.length; i++) {
+            temp = Math.max(temp + nums[i], nums[i]);
+            max = Math.max(temp, max);
+        }
+        return max;
+    }
+
+    @Test
+    public void test1() {
+        System.out.println(maxSubArray1(new int[]{5,4,-1,7,8}));
+        System.out.println(maxSubArray2(new int[]{5,4,-1,7,8}));
+    }
+
+    @Test
+    public void test2() {
+        System.out.println(maxSubArray1(new int[]{5,4,-1,7,8}));
+        System.out.println(maxSubArray2(new int[]{5,4,-1,7,8}));
     }
 
     /**
-     * dp[i] = dp[i - 1] + num[i];  num[i] >= 0
-     * dp[i] = dp[i - 1];           num[i] < 0
-     *
-     * dp[i] = (1) dp[i]    num.len = 1
-     *         (2) dp[]     dp[i] = num[i]是最大和的时候,当num.len > 1的时候必然有一个数是正数,因为如果是0,加上正数或者0的时候才有两位
-     *                                                        如果是负数,加上0最大和就是一位数0,加上正数可以达到两位数的最大和,加上负数是不能会有最大和的,和反而变小了,
-     *                                                         所以当nums最大和的长度是大于1的,必然有一个数是正数.
-     *         有了这个结论以后我们令num[i] > 0
-     *         dp[i] = dp[i - 1] + num[i]  当dp[i - 1] >=0
-     *         dp[i] = num[i]              当dp[i - 1] < 0
-     *         所以状态转移方程式三部分构成
-     *         (1) dp[i]    num.len = 1
-     *         (2) dp[i] = dp[i - 1] + num[i]  当dp[i - 1] >=0,len > 2
-     *         (3) dp[i] = num[i]              当dp[i - 1] < 0 len > 2
-     *         然后发现1和3其实是可以合并的
-     *         所以变成了
-     *         (1) dp[i] = num[i]  dp[i - 1] < 0
-     *         (2) dp[i] = dp[i - 1] + num[i]
-     *
-     *
-     *         */
+     * 两种方式都是采用动态规划
+     * 第一种方式是用一个dp的数组存储了每个下标上的相加的值，最后算出dp数组中最大的那个值
+     * 前一个数是小于零的就不进行相加，db[i] = nums[i] (dp[i- 1] < 0)
+     * 前一个数是大于等于0的就相加 dp[i] = dp[i + 1] + nums (dp[i - 1] >= 0)
+     * 状态转移方程：
+     * dp[i] = nums[i] (dp[i- 1] < 0)
+     *         dp[i + 1] + nums (dp[i - 1] >= 0)
+     * 第二种方式也是动态规划
+     * 只是因为我们只需要计算出最大值，temp的值在一直被新的值覆盖，时间复杂度没有变化，但是空间复杂度下降到了o(1)
+     **/
 }
