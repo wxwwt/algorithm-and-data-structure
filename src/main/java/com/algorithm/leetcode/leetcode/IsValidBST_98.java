@@ -2,20 +2,6 @@ package com.algorithm.leetcode.leetcode;
 
 import org.junit.jupiter.api.Test;
 
-/**
- * @author scott
- * @date 2020/5/5 22:19
- */
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-
-    TreeNode(int x) {
-        val = x;
-    }
-}
-
 public class IsValidBST_98 {
     long pre = Long.MIN_VALUE;
 
