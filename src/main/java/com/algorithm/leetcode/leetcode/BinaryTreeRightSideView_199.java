@@ -65,9 +65,42 @@ public class BinaryTreeRightSideView_199 {
         return Arrays.asList(depthArr);
     }
 
+
+    List<Integer> res = new ArrayList<>();
+
+    /**
+     * 用来深度优先遍历用的队列  摘抄自
+     * https://leetcode-cn.com/problems/binary-tree-right-side-view/solution/jian-dan-bfsdfs-bi-xu-miao-dong-by-sweetiee/
+     *
+     * @param root
+     * @return
+     */
+    public List<Integer> rightSideView2(TreeNode root) {
+        // 从根节点开始访问，根节点深度是0
+        dfs(root, 0);
+        return res;
+    }
+
+    private void dfs(TreeNode root, int depth) {
+        if (root == null) {
+            return;
+        }
+        // 先访问 当前节点，再递归地访问 右子树 和 左子树。
+        // 如果当前节点所在深度还没有出现在res里，说明在该深度下当前节点是第一个被访问的节点，因此将当前节点加入res中。
+        if (depth == res.size()) {
+            res.add(root.val);
+        }
+        depth++;
+        dfs(root.right, depth);
+        dfs(root.left, depth);
+    }
+
+
     @Test
     public void test1() {
-        List<Integer> list = rightSideView(new TreeNode(1, new TreeNode(2, null, new TreeNode(5)), new TreeNode(3, null, new TreeNode(4))));
-        Assert.assertEquals(list, Lists.newArrayList(1, 3, 4));
+        TreeNode tempNode = new TreeNode(1, new TreeNode(2, null, new TreeNode(5)), new TreeNode(3, null, new TreeNode(4)));
+        Assert.assertEquals(rightSideView(tempNode), Lists.newArrayList(1, 3, 4));
+
+        Assert.assertEquals(rightSideView2(tempNode), Lists.newArrayList(1, 3, 4));
     }
 }
