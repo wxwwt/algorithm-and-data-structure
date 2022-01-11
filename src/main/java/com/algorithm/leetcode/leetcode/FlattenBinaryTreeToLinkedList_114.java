@@ -63,26 +63,5 @@ public class FlattenBinaryTreeToLinkedList_114 {
                 new TreeNode(5, null, new TreeNode(6, null, null)));
         flatten1(node1);
     }
-
-
-    class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode() {
-        }
-
-        TreeNode(int val) {
-            this.val = val;
-        }
-
-        TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
-    }
-
 }
 
