@@ -7,7 +7,7 @@ import org.junit.Test;
  * @author scott
  * @date 2022/4/24 21:36
  */
-public class Offer_30 {
+public class MinStack_30 {
 
     @Test
     public void test1() {

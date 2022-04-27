@@ -9,7 +9,7 @@ import java.util.Stack;
  * @author scott
  * @date 2022/4/23 23:04
  */
-public class Offer_09 {
+public class CQueue_09 {
 
 
     @Test
