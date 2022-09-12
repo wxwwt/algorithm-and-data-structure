@@ -1,4 +1,4 @@
-package com.algorithm.leetcode.leetcode.interview;
+package com.algorithm.leetcode.nowcoder.huawei;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 /**
- * 求开方根的题目
+ * 求开方根的题目 HJ107 求解立方根
  * 可以使用牛顿迭代法和二分查找
  * 因为不会推导牛顿迭代法的公式，所以选择了二分查找。
  *
