@@ -14,7 +14,7 @@ import java.util.Scanner;
  * @author scott
  * @date 2022/9/11 22:10
  */
-public class GetCubeRoot {
+public class GetCubeRoot_107 {
     public static void main(String[] args) throws IOException {
         Scanner scanner = new  Scanner(System.in);
         Double n = scanner.nextDouble();

@@ -7,7 +7,7 @@ import org.junit.Test;
  * @author scott
  * @date 2022/9/17 20:48
  */
-public class LengthOfLIS {
+public class LengthOfLIS_300 {
 
     /**
      * dp[i] 表示的是以arr[i]元素结尾的递增序列的长度最大值
