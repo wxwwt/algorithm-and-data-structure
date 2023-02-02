@@ -9,48 +9,76 @@ import org.junit.Test;
  */
 public class MergeInBetweenLinkedLists_1669 {
 
-    public ListNode mergeInBetween(ListNode list1, int a, int b, ListNode list2) {
-        ListNode startNode = list1;
+    /**
+     * 解法一：分别遍历list1，list2，
+     * 从list1里面找到a的前一个节点，b的后一个节点，用指针存起来
+     * 从list2里面找到一个list2节点，找到最后一个节点
+     * 最后把四个节点连起来
+     * 时间复杂度：O(m+n)
+     * 空间复杂度：常数级 o(1)
+     * @param list1
+     * @param a
+     * @param b
+     * @param list2
+     * @return
+     */
+    public ListNode mergeInBetween1(ListNode list1, int a, int b, ListNode list2) {
         ListNode curNode = list1;
         ListNode leftNode = null;
         ListNode rightNode = null;
-        while(curNode != null) {
-            if (curNode.next != null && curNode.next.val  == a) {
+        for (int i = 0; curNode != null; curNode = curNode.next, i++) {
+            if (curNode.next != null && i + 1 == a) {
                 leftNode = curNode;
             }
 
-            if (curNode.val == b) {
+            if (i == b) {
                 rightNode = curNode.next;
             }
 
-            curNode = curNode.next;
         }
 
-        ListNode midNode = null;
         curNode = list2;
-        while (curNode != null) {
-            if (curNode.next == null) {
-                midNode = curNode;
-                break;
-            }
+        while (curNode.next != null) {
             curNode = curNode.next;
         }
 
         leftNode.next = list2;
-        midNode.next = rightNode;
-        return startNode;
+        curNode.next = rightNode;
+        return list1;
     }
+
+    /**
+     * 官网标准解法
+     * @param list1
+     * @param a
+     * @param b
+     * @param list2
+     * @return
+     */
+    public ListNode mergeInBetween2(ListNode list1, int a, int b, ListNode list2) {
+        ListNode preA = list1;
+        for (int i = 0; i < a - 1; i++) {
+            preA = preA.next;
+        }
+        ListNode preB = preA;
+        for (int i = 0; i < b - a + 2; i++) {
+            preB = preB.next;
+        }
+        preA.next = list2;
+        while (list2.next != null) {
+            list2 = list2.next;
+        }
+        list2.next = preB;
+        return list1;
+    }
+
 
     @Test
     public void test1() {
-        Assert.assertEquals(new ListNode(0,new ListNode(1,new ListNode(2, new ListNode(1000000, new ListNode(1000001, new ListNode(1000002, new ListNode(5))))))),
-                mergeInBetween(new ListNode(0,new ListNode(1,new ListNode(2,new ListNode(3,new ListNode(4,new ListNode(5)))))),
-                        3,4, new ListNode(1000000,new ListNode(1000001,new ListNode(1000002)))));
+        Assert.assertEquals(new ListNode(0, new ListNode(1, new ListNode(2, new ListNode(1000000, new ListNode(1000001, new ListNode(1000002, new ListNode(5))))))),
+                mergeInBetween2(new ListNode(0, new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5)))))),
+                        3, 4, new ListNode(1000000, new ListNode(1000001, new ListNode(1000002)))));
     }
-
-
-
-
 
 
     public class ListNode {
