@@ -1,7 +1,9 @@
 package com.algorithm.leetcode.leetcode;
 
-import com.google.common.collect.Maps;
+import org.junit.Assert;
+import org.junit.Test;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -10,19 +12,49 @@ import java.util.Map;
  */
 public class FibonacciNumber_509 {
 
+    /**
+     * 解法一：递归
+     * @param n
+     * @return
+     */
     public int fib(int n) {
-        Map<Integer, Integer> map = Maps.newHashMap();
-        if (n == 1 || n == 0) {
+        int[] dp = new int[n];
+        if (n < 2) {
             return n;
         }
 
-        if (map.containsKey(n)) {
-            return map.get(n);
+        if (dp[n - 1] != 0) {
+            return dp[n - 1];
         } else {
-            int temp = fib(n-1) + fib(n-2);
-            map.put(n, temp);
-            return temp;
+            int value = fib(n - 1) + fib(n - 2);
+            dp[n - 1] = value;
+            return value;
         }
 
+    }
+
+    /**
+     * 解法2：滚动数组，因为一直是使用fn fn-1 fn-2，
+     * 就用三个变量，一直往右边前进
+     *
+     * @param n
+     * @return
+     */
+    public int fib2(int n) {
+        if (n < 2) {
+            return n;
+        }
+        int a = 0, b = 1, c = 1;
+        for (int i = 2; i < n; i++) {
+             a = b;
+             b = c;
+             c = a + b;
+        }
+        return c;
+    }
+
+    @Test
+    public void test1() {
+        Assert.assertEquals(3, fib2(4));
     }
 }
