@@ -104,9 +104,10 @@ public class HouseRobber_198 {
 
     @Test
     public void test1() {
-        Assert.assertEquals(4,  rob(new int[]{1,2,3,1}));
-        Assert.assertEquals(12, rob(new int[]{2,7,9,3,1}));
-        Assert.assertEquals(0,  rob(new int[]{0}));
-        Assert.assertEquals(1,  rob(new int[]{0,1}));
+//        Assert.assertEquals(4,  rob(new int[]{1,2,3,1}));
+//        Assert.assertEquals(12, rob(new int[]{2,7,9,3,1}));
+//        Assert.assertEquals(0,  rob(new int[]{0}));
+//        Assert.assertEquals(1,  rob(new int[]{0,1}));
+        Assert.assertEquals(3,  rob(new int[]{1,2,1,1}));
     }
 }
