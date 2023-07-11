@@ -18,19 +18,17 @@ public class ContinuousSubarrays_2762 {
 
         int result = 0;
         for (int j = 0; j < nums.length; j++) {
-
+            int max = nums[j];
+            int min = nums[j];
             result++;
             for (int i = j + 1; i < nums.length; i++) {
-                boolean notcontain = false;
-                for (int k = j; k <= i; k++) {
-                    if (Math.abs(nums[k] - nums[i]) > 2) {
-                        notcontain = true;
-                        break;
-                    }
-                }
-                if (notcontain) {
+                max = Math.max(max, nums[i]);
+                min = Math.min(min, nums[i]);
+
+                if (Math.abs(max - min) > 2) {
                     break;
                 }
+
                 result++;
             }
         }
