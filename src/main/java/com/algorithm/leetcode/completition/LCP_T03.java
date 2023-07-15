@@ -3,8 +3,7 @@ package com.algorithm.leetcode.completition;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 /**
  * @author scott
@@ -13,43 +12,52 @@ import java.util.List;
 public class LCP_T03 {
 
 
-        int result = 0;
+
 
 
     public int maxNonDecreasingLength(int[] nums1, int[] nums2) {
-       dfs(nums1, nums2, 0,0,0);
-        return result;
-    }
+        int n = nums1.length;
+            int[][] dp = new int[n][2];
+            for (int[] arr : dp) {
+                Arrays.fill(arr, 1);
+            }
+//        Arrays.fill(dp, 1);
+            // dp[i][0] 表示以nums1[i]结尾最大子数组的长度
+        // dp[i][1] 表示以nums2[i]结尾最大子数组的长度
+        int  max = 1;
+        for (int i = 1; i < n; i++) {
+            // 左边比较的nums是表示上一个选的值是nums1还是nums2
+            if (nums1[i - 1] <= nums1[i]) {
+                dp[i][0] = dp[i - 1][0] + 1;
+            }
 
-    public void dfs(int[] nums1, int[] nums2, int index, int pre, int count) {
-        // 如果pre > Max.(nums1[i], nums[i]) 则要重新计算
-        // 如果 pre <= Min.(nums1[i], nums2[i]) 取nums[i]或者nums2[i]中小的那个值 继续走
-        // 如果 Min.(nums1[i], nums2[i]) <  pre <= Max.(nums1[i], nums2[i]) 就使用max的值 继续往下走
-        int max = Math.max(nums1[index], nums2[index]);
-        int min = Math.min(nums1[index], nums2[index]);
-        if (pre <= min) {
-            dfs(nums1, nums2, index + 1, min, count++);
-            result = Math.max(count, result);
-        } else {
-                if (pre > max) {
-                    result = Math.max(count, result);
-                    count = 0;
-                    dfs(nums1, nums2, index + 1, 0, count);
+            if (nums2[i - 1] <= nums1[i]) {
+                dp[i][0] = Math.max(dp[i][0], dp[i - 1][1] + 1);
+            }
 
-                } else {
-                    dfs(nums1, nums2, index + 1, max, count++);
-                    result = Math.max(count, result);
-                }
+            if (nums2[i - 1] <= nums2[i]) {
+                dp[i][1] =  dp[i - 1][1] + 1;
+            }
+
+            if (nums1[i - 1] <= nums2[i]) {
+                dp[i][1] = Math.max(dp[i][1], dp[i - 1][0] + 1);
+            }
+            max = Math.max(max, Math.max(dp[i][0], dp[i][1]));
         }
+        return max;
     }
+
 
 
 
     @Test
     public void test1() {
 
-        Assert.assertEquals(4, maxNonDecreasingLength(new int[]{1,3,2,1}, new int[]{2,2,3,4}));
-//        Assert.assertEquals(2, maxNonDecreasingLength(new int[]{8,7,4}, new int[]{13,4,4}));
+        Assert.assertEquals(4, maxNonDecreasingLength(new int[]{1, 3, 2, 1}, new int[]{2, 2, 3, 4}));
+        Assert.assertEquals(2, maxNonDecreasingLength(new int[]{8,7,4}, new int[]{13,4,4}));
+        Assert.assertEquals(3, maxNonDecreasingLength(new int[]{11,7,7,9}, new int[]{19,19,1,7}));
+
+        Assert.assertEquals(1, maxNonDecreasingLength(new int[]{1}, new int[]{1}));
 
     }
 }

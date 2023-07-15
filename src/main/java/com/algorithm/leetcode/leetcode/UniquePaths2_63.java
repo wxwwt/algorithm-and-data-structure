@@ -1,12 +1,10 @@
 package com.algorithm.leetcode.leetcode;
 
-import java.util.Arrays;
-
 /**
  * @author scott
  * @date 2019/11/10 17:06
  */
-public class UniquePaths2_62 {
+public class UniquePaths2_63 {
 
     public static int uniquePathsWithObstacles(int[][] obstacleGrid) {
         if (obstacleGrid.length > 100 || obstacleGrid[0].length > 100) {
@@ -36,6 +34,34 @@ public class UniquePaths2_62 {
             }
         }
         return dp[m - 1][n - 1];
+    }
+
+    /**
+     * 新增提交方法
+     * 定义dp[i][j] 是终点是坐标为i,j机器人能到达的方式
+     * 如果当前位置是障碍物，dp[i][j]就是0，因为无法到达那个位置
+     * 如果当前位置是没有障碍物，dp[i][j] = dp[i][j - 1] + dp[i - 1][j]
+     * 初始化：dp[1][1]  就是原地不动的话，就是1
+     * @param obstacleGrid
+     * @return
+     */
+    public int uniquePathsWithObstacles2(int[][] obstacleGrid) {
+        int m = obstacleGrid.length, n = obstacleGrid[0].length;
+        int[][] dp = new int[m + 1][n + 1];
+        dp[1][1] = 1;
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                if (obstacleGrid[i -1][j - 1] == 1) {
+                    dp[i][j] = 0;
+                } else {
+                    if (dp[i][j] == 0) {
+                        dp[i][j] = dp[i][j - 1] + dp[i - 1][j];
+                    }
+                }
+
+            }
+        }
+        return dp[m][n];
     }
 
 
