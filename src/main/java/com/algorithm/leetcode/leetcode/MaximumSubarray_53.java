@@ -39,16 +39,32 @@ public class MaximumSubarray_53 {
         return max;
     }
 
+    public int maxSubArray3(int[] nums) {
+
+        int[] dp = new  int[nums.length];
+        dp[0] = nums[0];
+        int result = Integer.MIN_VALUE;
+        for (int i = 1 ; i < nums.length; i++) {
+            if (dp[i - 1] <= 0) {
+                dp[i] = nums[i];
+            } else {
+                dp[i] = dp[i - 1] + nums[i];
+            }
+            result = Math.max(result, dp[i]);
+        }
+        return result;
+    }
+
     @Test
     public void test1() {
         System.out.println(maxSubArray1(new int[]{5,4,-1,7,8}));
-        System.out.println(maxSubArray2(new int[]{5,4,-1,7,8}));
+        System.out.println(maxSubArray3(new int[]{5,4,-1,7,8}));
     }
 
     @Test
     public void test2() {
         System.out.println(maxSubArray1(new int[]{5,4,-1,7,8}));
-        System.out.println(maxSubArray2(new int[]{5,4,-1,7,8}));
+        System.out.println(maxSubArray3(new int[]{5,4,-1,7,8}));
     }
 
     /**
