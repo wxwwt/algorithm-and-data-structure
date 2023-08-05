@@ -7,7 +7,7 @@ import org.junit.Test;
  * @author scott
  * @date 2023/7/22 22:27
  */
-public class LCP_03 {
+public class Last_LCP_03 {
 
     public long maxScore(int[] nums, int x) {
         int[][] dp = new int[nums.length][2];
