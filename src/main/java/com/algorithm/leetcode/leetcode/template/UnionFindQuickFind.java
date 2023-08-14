@@ -1,13 +1,13 @@
-package com.algorithm.leetcode.leetcode;
+package com.algorithm.leetcode.leetcode.template;
 
 /**
  * @author scott
  * @date 2023/8/7 22:39
  */
-public class UnionFind {
+public class UnionFindQuickFind {
     int root[];
 
-    public UnionFind(int size) {
+    public UnionFindQuickFind(int size) {
         root = new int[size];
         for (int i = 0; i < size; i++) {
             root[i] = i;
@@ -36,7 +36,7 @@ public class UnionFind {
 
 
         public static void main(String[] args) throws Exception {
-            UnionFind uf = new UnionFind(10);
+            UnionFindQuickFind uf = new UnionFindQuickFind(10);
             // 1-2-5-6-7 3-8-9 4
             uf.union(1, 2);
             uf.union(2, 5);

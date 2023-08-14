@@ -1,4 +1,4 @@
-package com.algorithm.leetcode.leetcode;
+package com.algorithm.leetcode.completition;
 
 import org.junit.Assert;
 import org.junit.Test;
