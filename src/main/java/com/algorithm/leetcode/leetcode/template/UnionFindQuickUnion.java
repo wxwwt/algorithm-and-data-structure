@@ -18,7 +18,7 @@ public class UnionFindQuickUnion {
 
     public int find(int x) {
         while (root[x] != x) {
-            return root[x] = find(x);
+            return root[x] = find(root[x]);
         }
         return x;
     }
@@ -27,7 +27,7 @@ public class UnionFindQuickUnion {
         int xRoot = find(x);
         int yRoot = find(y);
         if (xRoot != yRoot) {
-            root[y] = xRoot;
+            root[yRoot] = xRoot;
         }
     }
 
