@@ -14,6 +14,26 @@ import java.util.Map;
 public class LongestEqualSubarray_2831 {
 
 
+    public int longestEqualSubarray1(List<Integer> nums, int k) {
+        int left = 0;
+        int right = 0;
+        int maxFreq = 0;
+        int maxLength = 0;
+        Map<Integer, Integer> countMap = new HashMap<>();
+        for (right = 0; right < nums.size(); right++) {
+            int num = nums.get(right);
+            countMap.put(num, countMap.getOrDefault(num, 0) + 1);
+            maxFreq = Math.max(maxFreq, countMap.get(num));
+
+            while (right - left + 1 - maxFreq > k) {
+                countMap.put(nums.get(left), countMap.get(nums.get(left)) - 1);
+                left++;
+            }
+            maxLength = Math.max(maxLength, maxFreq);
+        }
+        return maxLength;
+    }
+
     public int longestEqualSubarray(List<Integer> nums, int k) {
         int left = 0;
         int right = 0;
@@ -32,6 +52,7 @@ public class LongestEqualSubarray_2831 {
             maxLength = Math.max(maxLength, maxFreq);
         }
         return maxLength;
+
     }
 
     @Test
